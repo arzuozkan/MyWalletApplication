@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/addCardFragment"
+        android:title="Add Card"
+        android:icon="@drawable/add_card_icon"/>
+    <item
+        android:id="@+id/walletFragment"
+        android:title="My Cards"
+        android:icon="@drawable/cards_icon"/>
+</menu>
