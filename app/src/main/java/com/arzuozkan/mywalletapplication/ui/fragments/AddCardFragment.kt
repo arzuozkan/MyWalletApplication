@@ -2,6 +2,7 @@ package com.arzuozkan.mywalletapplication.ui.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,15 +12,24 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.arzuozkan.mywalletapplication.callback.MLBcrCallback
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.arzuozkan.mywalletapplication.data.database.BankCard
+import com.arzuozkan.mywalletapplication.data.database.BankCardDB
+import com.arzuozkan.mywalletapplication.data.repository.BankCardRepository
 import com.arzuozkan.mywalletapplication.databinding.FragmentAddCardBinding
-import com.huawei.hms.mlplugin.card.bcr.CustomView
-import com.huawei.hms.mlplugin.card.bcr.MLBcrCapture
-import com.huawei.hms.mlplugin.card.bcr.MLBcrCaptureConfig
-import com.huawei.hms.mlplugin.card.bcr.MLBcrCaptureFactory
+import com.arzuozkan.mywalletapplication.ui.viewModel.AddCardViewModel
+import com.arzuozkan.mywalletapplication.ui.viewModel.AddCardViewModelFactory
+import com.huawei.hms.mlplugin.card.bcr.*
+
+
 
 class AddCardFragment : Fragment() {
+    private val LOGTAG ="AddCardFragment"
     private lateinit var binding: FragmentAddCardBinding
+    private lateinit var viewModel: AddCardViewModel
+    private lateinit var db:BankCardDB
+    private lateinit var newBankCard:BankCard
 
     //referenced code related to request permissions: https://github.com/blackzshaik/ActivityResultAPISample/blob/request-permission/app/src/main/java/com/madtutorial/activityresult/HomeFragment.kt
     private val permissionArray = arrayOf(
@@ -28,35 +38,86 @@ class AddCardFragment : Fragment() {
     )
     private val requestPermissions=
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){ permissionGranted ->
-            /*permissionGranted.entries.forEach {
-                Log.e("ADDCARDFRS", "${it.key} = ${it.value}")
-            }*/
             if(permissionGranted.isNotEmpty()){
-                if (permissionGranted[permissionArray[0]]!! && permissionGranted[permissionArray[1]]!! /*&& permissionGranted[permissionArray[2]]!!*/){
-                    Log.e("ADDCARDFRS","permissions granted")
+                if (permissionGranted[permissionArray[0]]!! && permissionGranted[permissionArray[1]]!!){
+                    Log.e(LOGTAG,"permissions granted")
 
                 }else{
-                    Log.e("ADDCARDFRS","denied permissions")
+                    Log.e(LOGTAG,"denied permissions")
                 }
 
             }
 
         }
+    //Referenced link address:https://forums.developer.huawei.com/forumPortal/en/topicview?tid=0201261566832050274&fid=0101187876626530001
+    private val callbackObj:MLBcrCapture.Callback=object :MLBcrCapture.Callback{
+        //if it scans successfully, onSuccess method runs
+        override fun onSuccess(p0: MLBcrCaptureResult) {
+            newBankCard=BankCard(
+                cardNumber = p0.number,
+                expireDate = p0.expire
+            )
+            binding.cardItem.apply {
+                bankCardItem.visibility=View.VISIBLE
+                cardNumberText.text=newBankCard.cardNumber
+                expireText.text=newBankCard.expireDate
+            }
+            binding.addCardButton.visibility=View.VISIBLE
+        }
 
+        override fun onCanceled() {
+            TODO("Not yet implemented")
+        }
+
+        override fun onFailure(p0: Int, p1: Bitmap?) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onDenied() {
+            TODO("Not yet implemented")
+        }
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val application = requireNotNull(this.activity).application
+        db=BankCardDB.getCardsDB(requireContext())!!
+        val repository=BankCardRepository(db.bankCardDao)
+        //viewModel declaration
+
+        val viewModelFactory=AddCardViewModelFactory(repository,application)
+        viewModel=viewModelFactory.let {
+            ViewModelProvider(this,it)[AddCardViewModel::class.java]
+        }
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding=FragmentAddCardBinding.inflate(inflater,container,false)
+        //application declaration
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //scanning the credit card
-        binding.scanCardButton.setOnClickListener {
-            Toast.makeText(requireContext(), "Scanning starting", Toast.LENGTH_SHORT).show()
-            checkPermissions()
+        binding.apply {
+            scanCardButton.setOnClickListener {
+                Toast.makeText(requireContext(), "Scanning starting", Toast.LENGTH_SHORT).show()
+                checkPermissions()
+            }
+            addCardButton.setOnClickListener {
+                viewModel.addCard(newBankCard)
+                //findNavController().navigate(AddCardFragmentDirections.actionAddCardFragmentToWalletFragment())
+                Toast.makeText(
+                    requireContext(),
+                    "The bank card is added to your wallet successfully",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
 
         }
     }
@@ -74,19 +135,11 @@ class AddCardFragment : Fragment() {
     //referenced code related to request permissions: https://github.com/blackzshaik/ActivityResultAPISample/blob/request-permission/app/src/main/java/com/madtutorial/activityresult/HomeFragment.kt
    private fun checkPermissions() {
         if (isAllPermissionGranted()) {
-            Log.e("ADDCARDFRS","Permission Already Granted")
+            Log.e(LOGTAG,"Permission Already Granted")
             try {
-                Log.e("ADDCARDFRS","try-catch içi")
-                startCaptureActivity(MLBcrCallback.Callback)
-                /*val resultCallback=CustomView.OnBcrResultCallback{card->
-                    if(card.errorCode==0){
-                        binding.cardNumber
-                    }else{
-
-                    }
-                }*/
+                startCaptureActivity(callbackObj)
             } catch (e: Exception) {
-                Log.e("ADDCARDFRS", "MLBcrCapture captureFrame Exception : " + e.message, e)
+                Log.e(LOGTAG, "MLBcrCapture captureFrame Exception : " + e.message, e)
             }
         } else {
             if (requireActivity().shouldShowRequestPermissionRationale(permissionArray[0])
@@ -95,7 +148,7 @@ class AddCardFragment : Fragment() {
             ) {
                 Toast.makeText(
                     requireContext(),
-                    "In order to demonstrate the success scenario we need you to allow access to the permission",
+                    "You need to granted required permissions!",
                     Toast.LENGTH_LONG
                 ).show()
 

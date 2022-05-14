@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.huawei.agconnect'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -63,6 +65,14 @@ dependencies {
     //Bank Card Recognition
     // Import the combined package of the bank card recognition plugin and recognition capability.
     implementation 'com.huawei.hms:ml-computer-card-bcr:3.4.0.301'
+
+    //Room
+    implementation "androidx.room:room-ktx:2.4.2"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    kapt "androidx.room:room-compiler:2.4.2"
+    androidTestImplementation "androidx.room:room-testing:2.4.2"
+
 
 
 

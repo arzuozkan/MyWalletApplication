@@ -2,5 +2,8 @@
     <string name="app_name">MyWalletApplication</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="scan_credit_card">Scan Credit Card</string>
+    <string name="scan_credit_card">SCAN BANK CARD</string>
+    <string name="status_message">Empty Wallet.\n No bank card saved in the wallet</string>
+    <string name="valid_nthru">VALID\nTHRU</string>
+    <string name="add_bank_card">Add Bank Card</string>
 </resources>
