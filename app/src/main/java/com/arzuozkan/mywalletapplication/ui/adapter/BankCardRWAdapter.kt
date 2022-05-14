@@ -2,6 +2,7 @@ package com.arzuozkan.mywalletapplication.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,7 @@ class BankCardRWAdapter:ListAdapter<BankCard,BankCardRWAdapter.BankCardItem>(Dif
     //referenced link:https://developer.android.com/codelabs/kotlin-android-training-diffutil-databinding#4
     class DiffUtilCallback:DiffUtil.ItemCallback<BankCard>() {
         override fun areItemsTheSame(oldItem: BankCard, newItem: BankCard): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.cardNumber == newItem.cardNumber
         }
 
         override fun areContentsTheSame(oldItem: BankCard, newItem: BankCard): Boolean {

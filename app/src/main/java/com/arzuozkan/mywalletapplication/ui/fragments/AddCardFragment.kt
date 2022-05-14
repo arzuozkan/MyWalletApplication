@@ -3,6 +3,7 @@ package com.arzuozkan.mywalletapplication.ui.fragments
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.arzuozkan.mywalletapplication.data.database.BankCard
 import com.arzuozkan.mywalletapplication.data.database.BankCardDB
 import com.arzuozkan.mywalletapplication.data.repository.BankCardRepository
@@ -21,7 +21,6 @@ import com.arzuozkan.mywalletapplication.databinding.FragmentAddCardBinding
 import com.arzuozkan.mywalletapplication.ui.viewModel.AddCardViewModel
 import com.arzuozkan.mywalletapplication.ui.viewModel.AddCardViewModelFactory
 import com.huawei.hms.mlplugin.card.bcr.*
-
 
 
 class AddCardFragment : Fragment() {
@@ -54,7 +53,7 @@ class AddCardFragment : Fragment() {
         //if it scans successfully, onSuccess method runs
         override fun onSuccess(p0: MLBcrCaptureResult) {
             newBankCard=BankCard(
-                cardNumber = p0.number,
+                cardNumber = setCardFormat(p0.number),
                 expireDate = p0.expire
             )
             binding.cardItem.apply {
@@ -78,14 +77,12 @@ class AddCardFragment : Fragment() {
         }
 
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val application = requireNotNull(this.activity).application
         db=BankCardDB.getCardsDB(requireContext())!!
+        val application = requireNotNull(this.activity).application
         val repository=BankCardRepository(db.bankCardDao)
         //viewModel declaration
-
         val viewModelFactory=AddCardViewModelFactory(repository,application)
         viewModel=viewModelFactory.let {
             ViewModelProvider(this,it)[AddCardViewModel::class.java]
@@ -132,7 +129,7 @@ class AddCardFragment : Fragment() {
         bankCapture.captureFrame(requireContext(),callback)
 
     }
-    //referenced code related to request permissions: https://github.com/blackzshaik/ActivityResultAPISample/blob/request-permission/app/src/main/java/com/madtutorial/activityresult/HomeFragment.kt
+    //referenced codes related to request permission: https://github.com/blackzshaik/ActivityResultAPISample/blob/request-permission/app/src/main/java/com/madtutorial/activityresult/HomeFragment.kt
    private fun checkPermissions() {
         if (isAllPermissionGranted()) {
             Log.e(LOGTAG,"Permission Already Granted")
@@ -140,6 +137,11 @@ class AddCardFragment : Fragment() {
                 startCaptureActivity(callbackObj)
             } catch (e: Exception) {
                 Log.e(LOGTAG, "MLBcrCapture captureFrame Exception : " + e.message, e)
+                Toast.makeText(
+                    requireContext(),
+                    "MLBcrCapture captureFrame Exception :" + e.message,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         } else {
             if (requireActivity().shouldShowRequestPermissionRationale(permissionArray[0])
@@ -170,5 +172,14 @@ class AddCardFragment : Fragment() {
             }
         }
         return true
+    }
+    private fun setCardFormat(number: String): String {
+        var formatted=""
+        var index=0
+        while (index<number.length){
+            formatted+= number.substring(index,index+4)+" "
+            index+=4
+        }
+        return formatted
     }
 }

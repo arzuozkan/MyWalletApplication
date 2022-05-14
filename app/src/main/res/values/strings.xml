@@ -6,4 +6,12 @@
     <string name="status_message">Empty Wallet.\n No bank card saved in the wallet</string>
     <string name="valid_nthru">VALID\nTHRU</string>
     <string name="add_bank_card">Add Bank Card</string>
+    <string name="log_out">Log out</string>
+    <string name="delete_message">Delete saved bank card information</string>
+    <string name="add_card">Add Card</string>
+    <string name="my_cards">My Cards</string>
+    <string name="settings">Settings</string>
+    <string name="sync_on_your_cloud">Sync on your cloud</string>
+    <string name="hwid">Huawei Kimliği :</string>
+    <string name="user_profile">user profile</string>
 </resources>

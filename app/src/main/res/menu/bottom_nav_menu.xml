@@ -4,10 +4,15 @@
 
     <item
         android:id="@+id/addCardFragment"
-        android:title="Add Card"
+        android:title="@string/add_card"
         android:icon="@drawable/add_card_icon"/>
     <item
         android:id="@+id/walletFragment"
-        android:title="My Cards"
+        android:title="@string/my_cards"
         android:icon="@drawable/cards_icon"/>
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        />
 </menu>

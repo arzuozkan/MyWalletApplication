@@ -19,4 +19,9 @@
         android:name="com.arzuozkan.mywalletapplication.ui.fragments.WalletFragment"
         android:label="fragment_wallet"
         tools:layout="@layout/fragment_wallet" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.arzuozkan.mywalletapplication.ui.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

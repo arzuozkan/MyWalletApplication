@@ -48,9 +48,7 @@ class WalletFragment : Fragment() {
             bankCardList.let{
                 adapter.submitList(it)
             }
-
         }
-
         return binding.root
     }
 

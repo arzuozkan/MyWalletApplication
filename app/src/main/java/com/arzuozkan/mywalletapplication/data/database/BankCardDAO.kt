@@ -14,4 +14,7 @@ interface BankCardDAO{
     @Query("SELECT * FROM bank_cards_table")
     fun allCards(): Flow<List<BankCard>>
 
+    @Query("DELETE FROM bank_cards_table")
+    suspend fun deleteAll()
+
 }
