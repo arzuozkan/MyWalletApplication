@@ -16,6 +16,13 @@ Arzu ÖZKAN
 - ViewBinding
 - [Huawei ML Kit Bank Card Recognition](https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/bcr-sdk-0000001050038086) to scan bank card
 
+# Demo Video
+
+
+https://user-images.githubusercontent.com/48025290/168465128-bc5d4cf7-19da-4fd8-926c-ec8d3b27f273.mp4
+
+
+
 # Screens
 ![image](https://user-images.githubusercontent.com/48025290/168447119-f99ef922-6b6a-4952-873d-5dcdf84fe316.png)
 
@@ -36,7 +43,4 @@ Arzu ÖZKAN
 
 # How to Download and Run Application
 Download the [APK file](https://github.com/arzuozkan/MyWalletApplication/blob/master/app/release/app-release.apk) from the link and also you can find the apk file under the app/release directory. Then install the application on your Huawei device
-
-# Demo Video
-- [ ] will be added a demo video
 
