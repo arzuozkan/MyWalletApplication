@@ -1,5 +1,9 @@
 # MyWalletApplication
+
+<img src="https://user-images.githubusercontent.com/48025290/168461146-e2d9bc2b-caa9-4044-bded-751853c9e582.png" height=155px/>
 The application can save your bank cards and it is useful by extracting card information when you need to use it.Internet connection doesn't required.
+
+Application icon made by [SmashIcons](https://www.flaticon.com/authors/smashicons) from www.flaticon.com
 
 # Competitor
 Arzu ÖZKAN
