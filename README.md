@@ -1,5 +1,5 @@
 # MyWalletApplication
-The application can save your bank cards and it is useful by extracting card informations when yo need to use it.
+The application can save your bank cards and it is useful by extracting card information when you need to use it.Internet connection doesn't required.
 
 # Competitor
 Arzu ÖZKAN
