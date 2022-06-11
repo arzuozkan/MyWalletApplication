@@ -12,6 +12,5 @@ build/
 /captures
 .externalNativeBuild
 .cxx
-local.properties
 signing/
 *.jks
