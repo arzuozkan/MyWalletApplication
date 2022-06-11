@@ -1,4 +1,4 @@
-# MyWalletApplication
+# MyWalletApplication (:construction: Under construction after the competition)
 
 <img src="https://user-images.githubusercontent.com/48025290/168461146-e2d9bc2b-caa9-4044-bded-751853c9e582.png" height=155px/>
 The application can save your bank cards and it is useful by extracting card information when you need to use it. Internet connection doesn't required.
@@ -15,11 +15,6 @@ Arzu ÖZKAN
 - Lifecycle
 - ViewBinding
 - [Huawei ML Kit Bank Card Recognition](https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/bcr-sdk-0000001050038086) to scan bank card
-
-# Demo Video
-
-
-https://user-images.githubusercontent.com/48025290/168465128-bc5d4cf7-19da-4fd8-926c-ec8d3b27f273.mp4
 
 
 # Screens
