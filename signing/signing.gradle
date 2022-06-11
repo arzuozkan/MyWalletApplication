@@ -1,0 +1,19 @@
+def propsFile = file('signing/signing.properties')
+def buildType = "release"
+
+if (!propsFile.exists()) throw new IllegalStateException("signing/signing.properties file missing")
+
+def props = new Properties()
+props.load(new FileInputStream(propsFile))
+
+def keystoreFile = file("signing/keystore.jks")
+if (!keystoreFile.exists()) throw new IllegalStateException("signing/keystore.jks file missing")
+
+android.signingConfigs.create(buildType, {
+    storeFile = keystoreFile
+    storePassword = props['storePassword']
+    keyAlias = props['keyAlias']
+    keyPassword = props['keyPassword']
+})
+
+android.buildTypes[buildType].signingConfig = android.signingConfigs[buildType]
