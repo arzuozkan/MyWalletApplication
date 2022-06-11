@@ -13,6 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
-/signing/MyApp.jks
-/signing/signing.gradle
-/signing/signing.properties
+/signing
