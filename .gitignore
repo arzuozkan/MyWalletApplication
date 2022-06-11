@@ -13,4 +13,4 @@ build/
 .externalNativeBuild
 .cxx
 signing/
-*.jks
+agconnect-services.json
