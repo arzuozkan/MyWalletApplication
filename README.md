@@ -16,14 +16,12 @@ Arzu ÖZKAN
 - ViewBinding
 - [Huawei ML Kit Bank Card Recognition](https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/bcr-sdk-0000001050038086) to scan bank card
 
-# Demo Video
-
-
-https://user-images.githubusercontent.com/48025290/168465128-bc5d4cf7-19da-4fd8-926c-ec8d3b27f273.mp4
-
 
 # Screens
 ![image](https://user-images.githubusercontent.com/48025290/168447119-f99ef922-6b6a-4952-873d-5dcdf84fe316.png)
+
+## Add Card Screen
+<img src="https://user-images.githubusercontent.com/48025290/168447336-ab9832e3-6353-4e54-9f20-cf9be86de598.jpg"/>
 
 
 # How to Download and Run Application
