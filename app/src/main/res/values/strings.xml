@@ -14,4 +14,6 @@
     <string name="sync_on_your_cloud">Sync on your cloud</string>
     <string name="hwid">Huawei Kimliği :</string>
     <string name="user_profile">user profile</string>
+    <string name="welcome_to_your_wallet">Welcome to your Wallet</string>
+    <string name="content_desc">background</string>
 </resources>

@@ -3,18 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.arzuozkan.mywalletapplication">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera"
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="false" />
 
-    <!-- uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-Wi-Fi status obtaining permission-
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" -->
-
-
-    <!-- Application icon is made by https://www.flaticon.com/authors/smashicons-->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -27,16 +24,19 @@
 
         <meta-data
             android:name="com.huawei.hms.ml.DEPENDENCY"
-            android:value= "bcr"/>
+            android:value="bcr" />
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.SignInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="false">
         </activity>
     </application>
 
